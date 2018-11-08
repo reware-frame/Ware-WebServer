@@ -36,7 +36,6 @@ public class BioServer {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
         }
     }
 }
