@@ -14,7 +14,6 @@ public class BioClient {
     public static void main(String[] args) {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(BioClientThreadPoolConfig.class);
         BioClientThread service = context.getBean(BioClientThread.class);
-
         for (int i = 0; i < THREAD_COUNT; i++) {
             service.run();
         }

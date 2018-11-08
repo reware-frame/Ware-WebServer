@@ -7,6 +7,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Objects;
 
 /**
  * BIO Server
@@ -17,28 +18,25 @@ import java.net.Socket;
 public class BioServer {
 
     public static void start() {
-
-        // 创建serverSocket对象，监听9000端口
-        ServerSocket serverSocket;
-        Socket socket = null;
-
+        ServerSocket server = null;
         try {
-            serverSocket = new ServerSocket(9000);
-            socket = serverSocket.accept();
-
-            AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(BioClientThreadPoolConfig.class);
-            BioClientThread service = context.getBean(BioClientThread.class);
-
-            for (int i = 0; i < 10; i++) {
-                service.run();
+            server = new ServerSocket(9000);
+            System.out.println("bio server init");
+            Socket socket;
+            while (true) {
+                socket = server.accept();
+                Thread thread = new BioServerThread(socket);
+                thread.start();
             }
-            context.close();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-        }
-        // 监听端口 《阻塞状态》
+        } finally {
+            try {
+                Objects.requireNonNull(server).close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
-        BioServerThread bioServerThread = new BioServerThread();
-        bioServerThread.run(socket);
+        }
     }
 }
