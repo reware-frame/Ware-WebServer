@@ -19,17 +19,10 @@ import java.net.Socket;
 public class BioServerThread {
 
     @Async
-    public void run() {
-        // 创建各种空对象
-        ServerSocket serverSocket = null;
-        Socket socket = null;
+    public void run(Socket socket) {
         DataInputStream dataInputStream = null;
         DataOutputStream dataOutputStream = null;
         try {
-            // 创建serverSocket对象，监听9000端口
-            serverSocket = new ServerSocket(9000);
-            // 监听端口 《阻塞状态》
-            socket = serverSocket.accept();
             while (true) {
                 // 从流中获取输入源
                 dataInputStream = new DataInputStream(socket.getInputStream());
@@ -65,13 +58,6 @@ public class BioServerThread {
             if (socket != null) {
                 try {
                     socket.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (serverSocket != null) {
-                try {
-                    serverSocket.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
