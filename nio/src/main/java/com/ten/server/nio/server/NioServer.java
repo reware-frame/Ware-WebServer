@@ -102,4 +102,14 @@ public class NioServer {
         // 将消息回送给客户端
         channel.write(outBuffer);
     }
+
+    public static void main(String[] args) {
+        NioServer server = new NioServer();
+        try {
+            server.initServer(8000);
+            server.listen();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
