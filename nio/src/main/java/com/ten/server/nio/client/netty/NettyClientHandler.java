@@ -1,4 +1,4 @@
-package com.ten.server.nio.client;
+package com.ten.server.nio.client.netty;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;

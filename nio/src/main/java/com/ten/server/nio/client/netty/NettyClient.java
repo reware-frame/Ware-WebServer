@@ -1,4 +1,4 @@
-package com.ten.server.nio.client;
+package com.ten.server.nio.client.netty;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
